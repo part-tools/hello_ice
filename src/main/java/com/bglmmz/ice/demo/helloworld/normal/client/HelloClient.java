@@ -1,0 +1,82 @@
+package com.bglmmz.ice.demo.helloworld.normal.client;
+
+import com.bglmmz.ice.demo.helloworld.slice.HelloServicePrx;
+
+public class HelloClient {
+    public static void main(String[] args) {
+        int status = 0;
+
+        // Communicator实例
+        try (com.zeroc.Ice.Communicator ic = com.zeroc.Ice.Util.initialize(args)) {
+
+            status = run(ic);
+        }
+        System.exit(status);
+    }
+
+    private static int run(com.zeroc.Ice.Communicator ic) {
+
+        //stringToProxy("HelloService:default -p 10001")是直接获取代理，这个"HelloService"是在服务端定义的服务的identityID
+        //propertyToProxy("HelloService.Proxy")是用properties中的定义来获取代理。在properties文件的"HelloService.Proxy"这个配置项，配置了在服务端定义的服务的identityID。
+        //在properties文件的"HelloService.Proxy"这个配置项的值，就是stringToProxy("HelloService:default -p 10001")这个的参数。
+
+        //HelloServicePrx helloService = HelloServicePrx.checkedCast(ic.stringToProxy("HelloService:default -p 10001")).ice_twoway().ice_secure(false);
+        HelloServicePrx helloService = HelloServicePrx.checkedCast(ic.stringToProxy("HelloService:default -p 10001"));
+        if (helloService == null) {
+            System.err.println("invalid proxy");
+            return 1;
+        }
+
+        menu();
+
+        java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(System.in));
+
+        String line = null;
+        do {
+            try {
+                System.out.print("==> ");
+                System.out.flush();
+                line = in.readLine();
+                if (line == null) {
+                    break;
+                }
+                if (line.startsWith("t ")) {
+                    String[] args = line.split(" ");
+                    if(args.length==2) {
+                        String echo = helloService.sayHello(args[1]);
+                        System.out.println("echo from server:" + echo);
+                    }else{
+                        System.out.println("unknown command `" + line + "'");
+                        menu();
+                    }
+
+                } else if (line.equals("s")) {
+                    helloService.shutdown();
+                } else if (line.equals("x")) {
+                    // Nothing to do
+                } else if (line.equals("?")) {
+                    menu();
+                } else {
+                    System.out.println("unknown command `" + line + "'");
+                    menu();
+                }
+            } catch (java.io.IOException ex) {
+                ex.printStackTrace();
+            } catch (com.zeroc.Ice.LocalException ex) {
+                ex.printStackTrace();
+            }
+        }
+        while (!line.equals("x"));
+
+        return 0;
+    }
+
+    private static void menu() {
+        System.out.println(
+                "usage:\n" +
+                        "t xx: send xx to server\n" +
+                        "s: shutdown server\n" +
+                        "x: exit\n" +
+                        "?: help\n");
+    }
+}

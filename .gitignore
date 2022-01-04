@@ -1,0 +1,11 @@
+.idea
+*.iws
+*.iml
+*.ipr
+
+*/logs/
+*/target/
+*/*.log
+logs/
+
+/deploy/
