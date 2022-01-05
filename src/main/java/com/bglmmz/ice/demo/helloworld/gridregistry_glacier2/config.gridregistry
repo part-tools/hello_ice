@@ -5,18 +5,18 @@
 IceGrid.InstanceName=DefaultIceGrid
 
 # 一个组织只有一个IceGridRegistry服务，假设都是缺省端口：4061, -h 配置ip。
-Ice.Default.Locator=DefaultIceGrid/Locator:tcp -p 4061 -h 192.168.21.26
+Ice.Default.Locator=DefaultIceGrid/Locator:tcp -p 4061 -h 192.168.2.128
 
 
 IceGrid.Registry.ReplicaName=Master
 
 # Registry 可以被ice客户端访问的地址
-IceGrid.Registry.Client.Endpoints=tcp -p 4061 -h 192.168.21.26
+IceGrid.Registry.Client.Endpoints=tcp -p 4061 -h 192.168.2.128
 
 # Registry 可以被ice服务访问的地址
-IceGrid.Registry.Server.Endpoints=tcp -h 192.168.21.26
+IceGrid.Registry.Server.Endpoints=tcp -h 192.168.2.128
 
-IceGrid.Registry.Internal.Endpoints=tcp -h 192.168.21.26
+IceGrid.Registry.Internal.Endpoints=tcp -h 192.168.2.128
 
 IceGrid.Registry.PermissionsVerifier=DefaultIceGrid/NullPermissionsVerifier
 IceGrid.Registry.AdminPermissionsVerifier=DefaultIceGrid/NullPermissionsVerifier

@@ -10,7 +10,7 @@ public class HelloClient {
         com.zeroc.Ice.InitializationData initData = new com.zeroc.Ice.InitializationData();
 
         Properties properties = com.zeroc.Ice.Util.createProperties();
-        properties.setProperty("Ice.Default.Router", "DefaultGlacier2/router:tcp -p 4064 -h 192.168.10.149");
+        properties.setProperty("Ice.Default.Router", "DefaultGlacier2/router:tcp -p 4064 -h 192.168.2.128");
         initData.properties = properties;
 
 

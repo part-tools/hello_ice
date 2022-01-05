@@ -14,14 +14,14 @@ public class HelloServer {
         Properties properties = com.zeroc.Ice.Util.createProperties();
         //和registry.cfg中配置一致
 
-        properties.setProperty("Ice.Default.Locator", "DefaultIceGrid/Locator:tcp -p 4061 -h 192.168.21.26");
+        properties.setProperty("Ice.Default.Locator", "DefaultIceGrid/Locator:tcp -p 4061 -h 192.168.2.128");
 
         //无需说明端口，不清楚是自动选择还是缺省端口，后续继续研究。
         //此任务的ice服务的adapter名称为：task_id_1_parter_id_1_Adapter
         String taskIceServantAdapterName = "DefaultTCPAdapter";
         String taskIceServantAdapterId = "icChannelAdapter1";
 
-        properties.setProperty(taskIceServantAdapterName + ".Endpoints", "tcp -h 192.168.21.26");
+        properties.setProperty(taskIceServantAdapterName + ".Endpoints", "tcp -h 192.168.2.128");
 
         //此任务的ice服务的adapter ID为：task_id_1_parter_id_1，客户端通过IceGridRegistry寻址时，是通过adapter ID来寻址的。
         properties.setProperty(taskIceServantAdapterName + ".AdapterId", taskIceServantAdapterId);
